@@ -2,6 +2,7 @@ const express=require('express');
 const app=express();
 const port=8000;
 const pageLayout=require('express-ejs-layouts');
+const db=require('./cofig/mangoose');
 
 //telling express to use static files
 app.use(express.static('./assets'));
