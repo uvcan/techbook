@@ -1,5 +1,5 @@
 const express=require('express');
-// const cookireParser=require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const app=express();
 const port=8000;
 const pageLayout=require('express-ejs-layouts');
@@ -12,7 +12,7 @@ app.use(express.static('./assets'));
 //Using middle ware
 app.use(express.urlencoded({ extended: true }));
 //Using cookies
-// app.use(cookireParser);
+app.use(cookieParser());
 
 // Use a layout for views
 app.use(pageLayout);
