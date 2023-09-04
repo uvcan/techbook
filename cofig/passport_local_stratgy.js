@@ -37,6 +37,7 @@ passport.use(new LocalStrategy({
                 return done(null, false);
             }
             return done(null, user);
+            
         } catch (err) {
             console.error('Error in finding the user --> Passport:', err);
             return done(err);
@@ -78,5 +79,24 @@ passport.deserializeUser(async function (id, done) {
     }
 });
 
+//Check if the user is Authenticate
+passport.checkAuthentication=function(req,res,next){
+    //if the user is authenticated then pass on the data to the next function
+    if(req.isAuthenticated()){
+        return next();
+    }
+    return res.redirect('/user/sigh-in');
+}
+
+
+passport.setAuthenticatedUser=function(req,res,next){
+    if(req.isAuthenticated()){
+        //req.user contain the current signed in user from the session cookie and we are just just sendind it to the local view
+        res.locals.user=req.user;
+
+    }
+    next();
+
+}
 
 module.exports=passport;

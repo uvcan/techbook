@@ -44,25 +44,26 @@ module.exports.sighIn=function(req,res){
 
 
 // get the singh UP data
-module.exports.create = async function(req, res) {
+module.exports.create = async function (req, res) {
   try {
     if (req.body.password !== req.body.confirm_password) {
       return res.redirect('back');
     }
 
-    const existingUser = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
 
-    if (!existingUser) {
+    if (!user) {
       const newUser = await User.create(req.body);
       return res.redirect('/users/sign-in');
     } else {
       return res.redirect('back');
     }
-  } catch (error) {
-    console.error('Error during user signup:', error);
+  } catch (err) {
+    console.error('Error in user registration:', err);
     return res.status(500).send('Internal Server Error'); // Handle the error appropriately
   }
 };
+
 
 
 
